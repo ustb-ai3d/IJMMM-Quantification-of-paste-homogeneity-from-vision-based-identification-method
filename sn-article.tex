@@ -76,7 +76,7 @@
 
 % \title{Quantifying and evaluating paste homogeneity from visual perspective}
 % \title{Application of vision object detection to homogenize quantization of paste}
-\title[Quantitative method for paste homogeneity]{Quantification of paste homogeneity from vision-based identification method}
+\title[Quantitative method for paste homogeneity]{Quantification of paste homogeneity by vision-based identification method}
 
 %%=============================================================%%
 %% Prefix	-> \pfx{Dr}
@@ -90,20 +90,20 @@
 %%                 \dgr{MSc, PhD}}\email{iauthor@gmail.com}
 %%=============================================================%%
 
-\author[1]{\fnm{Xiaorui} \sur{Li}}\email{lixiaorui@xs.ustb.edu.cn}
+% \author[1]{\fnm{Xiaorui} \sur{Li}}\email{lixiaorui@xs.ustb.edu.cn}
 
-\author[1]{\fnm{Hezheng} \sur{Wang}}\email{M202111287@xs.ustb.edu.cn}
-% \equalcont{These authors contributed equally to this work.}
+% \author[1]{\fnm{Hezheng} \sur{Wang}}\email{M202111287@xs.ustb.edu.cn}
+% % \equalcont{These authors contributed equally to this work.}
 
-\author[1]{\fnm{Zhaolin} \sur{Yuan}}\email{18810919727@163.com}
-% \equalcont{These authors contributed equally to this work.}
+% \author[1]{\fnm{Zhaolin} \sur{Yuan}}\email{18810919727@163.com}
+% % \equalcont{These authors contributed equally to this work.}
 
-\author*[1,2]{\fnm{Xiaojuan} \sur{Ban}}\email{banxj@ustb.edu.cn}
-\affil*[1]{\orgdiv{School of Intelligence Science and Technology}, \orgname{University of Science and Technology Beijing}, \orgaddress{\street{Haidian}, \city{Beijing}, \postcode{10083}, \country{China}}}
+% \author*[1,2,3]{\fnm{Xiaojuan} \sur{Ban}}\email{banxj@ustb.edu.cn}
+% \affil*[1]{\orgdiv{School of Intelligence Science and Technology, School of Computer and Communication Engineering,Institute of Artificial Intelligence}, \orgname{University of Science and Technology Beijing}, \orgaddress{\street{Haidian}, \city{Beijing}, \postcode{10083}, \country{China}}}
 
-\affil[2]{\orgdiv{Institute of Artificial Intelligence
-}, \orgname{University of Science and Technology Beijing}, \orgaddress{\street{Haidian}, \city{Beijing}, \postcode{100083}, \country{China}}}
+% \affil[2]{\orgdiv{Beijing Advanced Innovation Center for Materials Genome Engineering}, \orgname{University of Science and Technology Beijing}, \orgaddress{\street{Haidian}, \city{Beijing}, \postcode{100083}, \country{China}}}
 
+% \affil[3]{\orgdiv{Beijing Key Laboratory of Knowledge Engineering for Materials Science}, \orgaddress{\street{Haidian}, \city{Beijing}, \postcode{100083}, \country{China}}}
 
 \abstract{
 % The mixing process is the core part of cemented paste backfill technology, and  
@@ -113,8 +113,11 @@ To address the problem of measuring paste homogeneity in real-time, this paper p
 First, we designed hardware equipment composed of the CMOS camera and server to capture a real-time image of the tail of a double-shaft mixer. 
 Second, the paste homogeneity evaluation is formalized as a semantic image segmentation problem. Paste area and non-homogeneous area based were identified on a computer vision algorithm. This is the first time computer vision has been introduced into the problem. 
 Then, the non-homogeneity factor is defined as the proportion of the non-homogeneous area to the pasted area.
-Finally, Gaussian process regression (GPR) model was used to predict the probability of non-homogeneity factor under the current blade position condition, and the homogeneous metric was calculated according to the probability of the factor.
-The experiments conducted in a real industrial paste backfill station demonstrate that the proposed technique satisfies the requirements in terms of efficiency, accuracy and stability, and the quantified metric is consistent with subjective assessment. }
+Finally, Gaussian process regression (GPR) model was used to predict the probability of non-homogeneity factor under the current blade position condition, and the homogeneity metric was calculated according to the probability of the factor.
+The experiments conducted in a real industrial paste backfill station demonstrate that the proposed technique satisfies the requirements in terms of efficiency, accuracy and stability, and the quantified metric is consistent with subjective assessment.}
+
+% \section{Acknowledgment}
+% The authors acknowledge financial support from the National Natural Science Foundation of China (No. 61572075, No. 61873299), the Finance science and technology project of Hainan province (No. ZDYF2019009), and the Fundamental Research Funds for the University of Science and Technology Beijing(No. FRF-BD-19-012A, No. FRF-TP-19-043A2). The computing work is partly supported by USTB MatCom of Beijing Advanced Innovation Center for Materials Genome Engineering.
 
 %%================================%%
 %% Sample for structured abstract %%
@@ -128,12 +131,11 @@ The experiments conducted in a real industrial paste backfill station demonstrat
 % 
 % \textbf{Conclusion:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.}
 
-\keywords{cemented paste backfill; paste homogeneity; image segmentation; gaussian process; homogeneity metric}
 
 %%\pacs[JEL Classification]{D8, H51}
 
 %%\pacs[MSC Classification]{35A01, 65L10, 65L12, 65L20, 65L70}
-
+\keywords{cemented paste backfill; paste homogeneity; image segmentation; gaussian process; homogeneity metric}
 \maketitle
 
 \section{Introduction}\label{sec1}            
@@ -161,7 +163,7 @@ In order to determine whether the mixing is sufficient, experienced engineers ju
     \subfloat[Hump-like surface ]{\includegraphics[width=0.24\linewidth]{images/hump.png}}
     \hfill
     \subfloat[Bubble-like surface]{\includegraphics[width=0.24\linewidth]{images/bubble.png}} 
-    \caption{surface features of paste}
+    \caption{surface features of paste.}
     \label{fig:surface_features}
 \end{figure}
 
@@ -186,14 +188,15 @@ The high precision and good generalization of deep-learning-based image segmenta
 In this paper, we introduce learning-based semantic image segmentation to identify non-paste and non-homogeneous areas in the  images of paste surface.          
 We also investigate the performance of different images resolution and preprocessing method with the specific application of non-paste and non-homogeneous task. 
 % An empirical model is generated through historical mixing homogeneity data based on Gaussian Process Regression to predict the prior distribution of non-homogeneous area under different blade positions.        
-In order to eliminate the effect of blade positions on the evaluated homogeneity, we use the collected paste images and their corresponding non-homogeneous area to fit a Gaussian Process Regression(GPR) model\cite{IJM-12-2021-1162}.
+In order to eliminate the effect of blade positions on the evaluated homogeneity, we use the collected paste images and their corresponding non-homogeneous area to fit a Gaussian Process Regression(GPR) model\cite{Gaussian_Tutor}.
 The GPR model is constructed to predict the  distribution of non-homogeneity factor conditioned by different blade positions.
 
 The key contributions are highlighted as follows:
 \begin{enumerate}
     \item This paper proposes a computer-vision-based non-contact paste homogeneity measurement pipeline for quantifying and evaluating the paste homogeneity in real-time.
     \item This is the first time the paste homogeneity evaluation is formalized as a semantic image segmentation problem. 
-    The self-made dataset, including the images of paste surface and their non-homogeneous area labels, is public released. \footnote{The dataset is available at \url{dataset.ustb-ai3d.cn/paste_homogeneity}}
+    The self-made dataset, including the images of paste surface and their non-homogeneous area labels, is public released. 
+    %\footnote{The dataset is available at \url{dataset.ustb-ai3d.cn/paste_homogeneity}}
     
     % We establish and release a paste surface dataset that has non-paste and non-homogeneous area labels, and realized the semantic image segmentation algorithm of the dataset.
     \item The proposed pipeline is deployed and evaluated in a real paste backfill station. 
@@ -221,7 +224,7 @@ The pipeline of image collecting and analysis is shown in Fig. \ref{fig:pipeline
 
 \subsection{Data Collection}
 
-Many previous practices indicate that the main reason leading to the non-homogeneous paste is the agglomeration phenomenon of the particles\cite{wu2019rheology}, 
+Many previous practices indicate that the main reason leading to the non-homogeneous paste is the agglomeration phenomenon of the particles\cite{YANG2020118516}, 
 During the paste mixing, concentrated tailings and cement particles adheres to each other and larger aggregates are formed under the wrapping impact of water film and the adsorption effect of particles\cite{QI2019106025}. 
 % The aggregates not only reduce the fluidity of the paste, which increases the risk of pipe vibration and blockage phenomenon, but also reduce to the physical strength of backfill body \cite{tailingsManagement}
 Not only the aggregates reduce the fluidity of the paste and increase the risk of pipe vibration and blockage phenomenon, they also reduce the physical strength of backfill body \cite{tailingsManagement}.
@@ -314,10 +317,10 @@ The original color images, meanwhile, are converted to grayscale images for emph
 \subsection{Quantization of homogeneity}\label{sec2.3}
 
 \subsubsection{non-homogeneity factor}\label{2.3.1}
-After identification the non-homogeneous areas and non-paste areas in an image, We believe that the proportion of non-homogeneous area to the paste area reflects the degree of non-homogeneity, so we define the non-homogeneity factor $F_{nh}$ as follows:
+After identification the non-homogeneous areas and non-paste areas in an image, We believe that the proportion of the non-homogeneous area to the paste area reflects the degree of non-homogeneity, so we define the non-homogeneity factor $F_{nh}$ as follows:
 \begin{equation}
 \label{equ:prop_p}
-F_{nh} = \frac{S_{nh}}{{S_{total} - S_{np}}},
+F_{nh} = \frac{S_{nh}}{{S_{total} - S_{np}}}
 \end{equation}
 where $F_{nh}\in\left[0,1 \right)$, $S_{nh}$ is the size of identified non-homogeneous areas, $S_{total}$ is the total size of the input image, and $S_{np}$ is the size of non-paste areas.
 All variables are measured by pixels.          
@@ -376,7 +379,7 @@ For any blade position, the GPR can predict a corresponding Gaussian distributio
 
 \subsubsection{Homogeneity metric}\label{2.3.2}
 
- After fitting the historical non-homogeneity factor distribution with GPR, it is easy to calculate the probability that the history is more homogeneous than a new non-homogeneous factor.       
+ After fitting the historical non-homogeneity factor distribution with GPR, it is easy to calculate the probability that the history is more homogeneous than a new non-homogeneity factor.       
  
 Thus the homogeneity metric $M(F_{nh}) \in [0,1]$ is defined by the cumulative distribution function(CDF) of the random variable non-homogeneity factor $F_{nh}$ to judge the degree of paste homogeneity,  which can be denoted as:
 \begin{equation}
@@ -458,7 +461,7 @@ The results for using different preprocess methods are shown in Table \ref{Prepr
 \begin{figure}
     \centering
     \includegraphics[width=0.99\linewidth]{images/GP_result.png}
-    \caption{GPR model fitting results}
+    \caption{GPR model fitting result.}
     \label{fig:gpr}
 \end{figure}
 
@@ -477,7 +480,7 @@ When the two blades gradually separate and approach the next blade, the non-homo
 In Fig. \ref{fig:qualitative_comparison}, we illustrate the comparison of the original image with the result predicted by our model . 
 Obviously, when the paste surface is flat and smooth with few hump and nodule cases, the model barely identifies the non-homogeneous areas and thus gives a high homogeneity metric. 
 When the paste surface is rougher and filled with more irregular textures, the model can identify large non-homogeneous areas.
-If the measured non-homogeneous metric is higher than a specific threshold, the system will alert the engineers to the situation of poor homogeneity and remind the operators to raise the mixing speed or extend the mixing time.
+If the measured non-homogeneity metric is higher than a specific threshold, the system will alert the engineers to the situation of poor homogeneity and remind the operators to raise the mixing speed or extend the mixing time.
 % The visual effect and low homogeneity metric to alert the field engineers.
 
 \section{Conclusion}\label{sec6}
